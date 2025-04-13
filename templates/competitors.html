@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Release Optimizer - Competitor Analysis{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0">Competitor Release Schedule</h2>
+    </div>
+    <div class="card-body">
+        <p class="card-text text-muted mb-4">Analysis of competing studios and their planned releases</p>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Studio</th>
+                        <th>Market Strength</th>
+                        <th>Strategy</th>
+                        <th>Upcoming Releases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for competitor in competitor_data %}
+                    <tr>
+                        <td class="fw-bold">{{ competitor.name }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="progress flex-grow-1" style="height: 10px;">
+                                    {% set strength = competitor.strength | default(0, true) | int %}
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width: 10%;"
+                                         aria-valuenow="{{ strength }}"
+                                         aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <span class="small">{{ strength }}%</span>
+                            </div>
+                        </td>
+                        <td>{{ competitor.strategy }}</td>
+                        <td>
+                            <div class="d-flex flex-column gap-2">
+                                {% for release in competitor.releases %}
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-secondary text-capitalize">{{ release.genre }}</span>
+                                    <span class="fw-medium">{{ release.title }}</span>
+                                    <span class="text-muted">({{ release.month }})</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0">Release Distribution by Month</h2>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height:400px;">
+                    <img src="{{ month_distribution_chart }}" alt="Release Distribution by Month" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0">Release Distribution by Genre</h2>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height:400px;">
+                    <img src="{{ genre_distribution_chart }}" alt="Release Distribution by Genre" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0">Game Theory Analysis</h2>
+    </div>
+    <div class="card-body">
+        <div class="mb-4">
+            <h3 class="h5 mb-2">Dominant Strategies</h3>
+            <p>{{ game_theory_analysis.dominantStrategies }}</p>
+        </div>
+
+        <div class="mb-4">
+            <h3 class="h5 mb-2">Counter-Programming Opportunities</h3>
+            <p>{{ game_theory_analysis.counterProgramming }}</p>
+        </div>
+
+        <div>
+            <h3 class="h5 mb-2">Nash Equilibrium Insight</h3>
+            <p>{{ game_theory_analysis.nashEquilibrium }}</p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('calendar') }}" class="btn btn-primary d-block">Continue to Release Calendar</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Release Optimizer - Setup{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0">Movie Details</h2>
+    </div>
+    <div class="card-body">
+        <p class="card-text text-muted mb-4">Enter the details of your movie project to begin the market analysis.</p>
+        
+        <form method="POST" action="{{ url_for('index') }}" class="needs-validation" novalidate>
+            {{ form.csrf_token }}
+            
+            <div class="mb-3">
+                <label for="movie_title" class="form-label">{{ form.movie_title.label }}</label>
+                {{ form.movie_title(class="form-control", placeholder="Enter movie title") }}
+                {% if form.movie_title.errors %}
+                <div class="text-danger">
+                    {% for error in form.movie_title.errors %}
+                    <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="genre" class="form-label">{{ form.genre.label }}</label>
+                {{ form.genre(class="form-select") }}
+                {% if form.genre.errors %}
+                <div class="text-danger">
+                    {% for error in form.genre.errors %}
+                    <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="budget" class="form-label">Production Budget (in Crores ₹)</label>
+                <div class="d-flex align-items-center gap-3">
+                    <input type="range" class="form-range flex-grow-1" id="budget_slider" 
+                           min="1" max="500" step="1" value="{{ form.budget.data or 50 }}"
+                           oninput="updateBudgetValue(this.value)">
+                    <div class="rupee-input-group">
+                        <span class="rupee-symbol">₹</span>
+                        <span id="budget_display" class="rupee-value">{{ form.budget.data or 50 }}</span>
+                        <span class="rupee-unit">Cr</span>
+                    </div>
+                    {{ form.budget(type="hidden", id="budget_input") }}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="marketing_budget" class="form-label">Marketing Budget (in Crores ₹)</label>
+                <div class="d-flex align-items-center gap-3">
+                    <input type="range" class="form-range flex-grow-1" id="marketing_slider" 
+                           min="1" max="200" step="1" value="{{ form.marketing_budget.data or 20 }}"
+                           oninput="updateMarketingValue(this.value)">
+                    <div class="rupee-input-group">
+                        <span class="rupee-symbol">₹</span>
+                        <span id="marketing_display" class="rupee-value">{{ form.marketing_budget.data or 20 }}</span>
+                        <span class="rupee-unit">Cr</span>
+                    </div>
+                    {{ form.marketing_budget(type="hidden", id="marketing_input") }}
+                </div>
+            </div>
+            
+            <script>
+                function updateBudgetValue(val) {
+                    const value = parseInt(val);
+                    document.getElementById('budget_input').value = value;
+                    document.getElementById('budget_display').textContent = value;
+                }
+                
+                function updateMarketingValue(val) {
+                    const value = parseInt(val);
+                    document.getElementById('marketing_input').value = value;
+                    document.getElementById('marketing_display').textContent = value;
+                }
+            </script>
+            <div class="mb-3">
+                <label for="target_audience" class="form-label">{{ form.target_audience.label }}</label>
+                {{ form.target_audience(class="form-select") }}
+                {% if form.target_audience.errors %}
+                <div class="text-danger">
+                    {% for error in form.target_audience.errors %}
+                    <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="d-grid">
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function updateBudgetValue(val) {
+        document.getElementById('budget_input').value = val;
+    }
+    
+    function updateBudgetSlider(val) {
+        document.getElementById('budget_slider').value = val;
+    }
+    
+    function updateMarketingValue(val) {
+        document.getElementById('marketing_input').value = val;
+    }
+    
+    function updateMarketingSlider(val) {
+        document.getElementById('marketing_slider').value = val;
+    }
+</script>
+{% endblock %}

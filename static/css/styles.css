@@ -1,0 +1,454 @@
+/* Main Styles */
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Card Enhancements */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Header Styles */
+header {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+}
+
+header h1 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Form Enhancements */
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Slider Enhancements */
+.form-range {
+    height: 1.5rem;
+    padding: 0;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: #0d6efd;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-top: -0.5rem;
+    transition: all 0.2s ease;
+}
+
+.form-range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.rupee-input-group {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #e9ecef;
+    min-width: 150px;
+}
+
+.rupee-symbol {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #198754;
+    margin-right: 0.5rem;
+}
+
+.rupee-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+    min-width: 3ch;
+    text-align: right;
+}
+
+.rupee-unit {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-left: 0.5rem;
+}
+
+/* Button Styles */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.3);
+}
+
+/* Chart Container */
+.chart-container {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Chart Styles */
+/* Currency Display Styles */
+.currency-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.currency-symbol {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: inherit;
+}
+
+.currency-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: inherit;
+}
+
+.currency-unit {
+    font-size: 1.25rem;
+    color: inherit;
+    opacity: 0.8;
+}
+
+/* Chart Container Styles */
+.chart-container {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Tab Navigation */
+.nav-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #495057;
+    border-bottom-color: #dee2e6;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    border-bottom-color: #0d6efd;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 1rem 0;
+}
+
+.tab-pane {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.tab-pane.fade {
+    opacity: 0;
+}
+
+.tab-pane.fade.show {
+    opacity: 1;
+}
+
+.tab-pane {
+    opacity: 1 !important;
+    display: block !important;
+}
+
+.tab-pane:not(.active) {
+    display: none !important;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-wrapper img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Tab Pane Transitions */
+.tab-pane {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.tab-pane.fade {
+    opacity: 0;
+}
+
+.tab-pane.fade.show {
+    opacity: 1;
+}
+
+/* Tab Navigation */
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6;
+    margin-bottom: 1.5rem;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 1.5rem;
+    margin-bottom: -2px;
+    color: #6c757d;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef;
+    color: #495057;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    border-bottom-color: #0d6efd;
+}
+
+.tab-content {
+    padding: 1rem 0;
+}
+
+.tab-pane {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-pane.show {
+    opacity: 1;
+}
+
+/* Distribution Charts */
+.distribution-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.distribution-chart {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Seasonal Analysis */
+.seasonal-analysis {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Chart Legend */
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+}
+
+/* Calendar Styles */
+.month-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.month-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.month-card:hover {
+    transform: translateY(-5px);
+}
+
+.month-card.selected {
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Results Page */
+.result-metric {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background: white;
+}
+
+.result-metric .value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
+/* Currency Display Styles */
+.currency-display {
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.currency-symbol {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.currency-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.currency-unit {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.currency-secondary {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+/* Enhance form input groups */
+.input-group .input-group-text {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #198754;
+    background-color: #f8f9fa;
+    padding: 0.75rem 1rem;
+}
+
+.input-group .form-control {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+
+/* Currency Input Styles */
+.budget-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.rupee-input-group {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #e9ecef;
+}
+
+.rupee-symbol {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #198754;
+    margin-right: 0.5rem;
+}
+
+.rupee-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+}
+
+.rupee-unit {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-left: 0.5rem;
+}
+
+/* Hide dollar values */
+.dollar-value {
+    display: none;
+}
+  

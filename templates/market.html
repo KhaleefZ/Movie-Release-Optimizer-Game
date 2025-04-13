@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Release Optimizer - Market Analysis{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0">Market Analysis for {{ genre|capitalize }} Movies</h2>
+    </div>
+    <div class="card-body">
+        <p class="card-text text-muted mb-4">Review the market conditions throughout the year to identify optimal release windows.</p>
+        
+        <ul class="nav nav-tabs mb-3" id="marketTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="audience-tab" data-bs-toggle="tab" data-bs-target="#audience" type="button" role="tab" aria-controls="audience" aria-selected="true">
+                    Audience Receptivity
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="competition-tab" data-bs-toggle="tab" data-bs-target="#competition" type="button" role="tab" aria-controls="competition" aria-selected="false">
+                    Competition Level
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing" type="button" role="tab" aria-controls="marketing" aria-selected="false">
+                    Marketing Effectiveness
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profit-tab" data-bs-toggle="tab" data-bs-target="#profit" type="button" role="tab" aria-controls="profit" aria-selected="false">
+                    Profit Potential
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="marketTabsContent">
+            <div class="tab-pane fade show active" id="audience" role="tabpanel" aria-labelledby="audience-tab">
+                <div class="chart-container bg-white p-4 rounded shadow-sm">
+                    <img src="data:image/png;base64,{{ audience_chart }}" alt="Audience Receptivity Chart" class="img-fluid">
+                </div>
+                <div class="mt-4 text-muted">
+                    <p><strong>Audience Receptivity</strong> indicates how likely audiences are to attend movies in each month. Higher values suggest better potential attendance.</p>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="competition" role="tabpanel" aria-labelledby="competition-tab">
+                <div class="chart-container bg-white p-4 rounded shadow-sm">
+                    <img src="data:image/png;base64,{{ competition_chart }}" alt="Competition Level Chart" class="img-fluid">
+                </div>
+                <div class="mt-4 text-muted">
+                    <p><strong>Competition Level</strong> shows the expected competition from other studios in each month. Lower values are generally better for your release.</p>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="marketing" role="tabpanel" aria-labelledby="marketing-tab">
+                <div class="chart-container bg-white p-4 rounded shadow-sm">
+                    <img src="data:image/png;base64,{{ marketing_chart }}" alt="Marketing Effectiveness Chart" class="img-fluid">
+                </div>
+                <div class="mt-4 text-muted">
+                    <p><strong>Marketing Effectiveness</strong> indicates how well marketing campaigns perform in each month.</p>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="profit" role="tabpanel" aria-labelledby="profit-tab">
+                <div class="chart-container bg-white p-4 rounded shadow-sm">
+                    {% if profit_chart %}
+                        <img src="data:image/png;base64,{{ profit_chart }}" alt="Profit Potential Chart" class="img-fluid w-100">
+                    {% else %}
+                        <div class="alert alert-warning">No profit data available</div>
+                    {% endif %}
+                </div>
+                <div class="mt-4 text-muted">
+                    <p><strong>Profit Potential</strong> shows the estimated profit potential for each month based on market conditions.</p>
+                    <ul class="list-unstyled small">
+                        <li><i class="bi bi-circle-fill text-primary me-2"></i>Higher values indicate better profit opportunities</li>
+                        <li><i class="bi bi-circle-fill text-primary me-2"></i>Consider these trends alongside competition levels</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0">Seasonal Analysis</h2>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h3 class="h5 mb-3">Best Seasons</h3>
+                <ul class="list-group">
+                    {% for season in seasonal_analysis.bestSeasons %}
+                    <li class="list-group-item d-flex align-items-center">
+                        <span class="badge bg-success rounded-pill me-2">&nbsp;</span>
+                        <span class="text-capitalize">
+                            {{ season.season }}: {{ season.months|join(', ') }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="col-md-6">
+                <h3 class="h5 mb-3">Challenging Seasons</h3>
+                <ul class="list-group">
+                    {% for season in seasonal_analysis.worstSeasons %}
+                    <li class="list-group-item d-flex align-items-center">
+                        <span class="badge bg-danger rounded-pill me-2">&nbsp;</span>
+                        <span class="text-capitalize">
+                            {{ season.season }}: {{ season.months|join(', ') }}
+                        </span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h3 class="h5 mb-3">Game Theory Insight</h3>
+            <div class="alert alert-info">
+                <p class="mb-0">{{ seasonal_analysis.gameTheoryInsight }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('competitors') }}" class="btn btn-primary d-block">Continue to Competitor Analysis</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Release Optimizer - Results{% endblock %}
+
+{% block content %}
+<div class="card shadow {% if results.profit > 0 %}border-success{% else %}border-danger{% endif %} border-start border-5">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="h3 mb-0">{{ movie_details.movieTitle }}</h2>
+                <div class="d-flex align-items-center gap-2 mt-1">
+                    <span class="badge bg-secondary text-capitalize">{{ movie_details.genre }}</span>
+                    <span class="text-muted">Released in {{ movie_details.releaseDate }}</span>
+                </div>
+            </div>
+            
+            {% if results.profit > movie_details.budget + movie_details.marketingBudget %}
+            <span class="badge bg-success">Blockbuster Success</span>
+            {% elif results.profit > 0 %}
+            <span class="badge bg-primary">Profitable</span>
+            {% else %}
+            <span class="badge bg-danger">Financial Loss</span>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+            <!-- Box Office Card -->
+            <div class="col">
+                <div class="card bg-light h-100">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2">
+                            <i class="bi bi-currency-rupee"></i> Box Office
+                        </h5>
+                        <div class="currency-display">
+                            <span class="currency-symbol">₹</span>
+                            <span class="currency-value">{{ results.boxOffice }}</span>
+                            <span class="currency-unit">Cr</span>
+                        </div>
+                        <div class="small text-muted">Total Revenue</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profit Card -->
+            <div class="col">
+                <div class="card bg-light h-100">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2">
+                            <i class="bi bi-currency-rupee"></i> Profit
+                        </h5>
+                        <div class="currency-display {% if results.profit > 0 %}text-success{% else %}text-danger{% endif %}">
+                            <span class="currency-symbol">₹</span>
+                            <span class="currency-value">{{ results.profit }}</span>
+                            <span class="currency-unit">Cr</span>
+                        </div>
+                        <div class="small text-muted">Net Profit/Loss</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ROI Card -->
+            <div class="col">
+                <div class="card bg-light h-100">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2">
+                            <i class="bi bi-graph-up"></i> ROI
+                        </h5>
+                        <div class="display-6 fw-bold {% if results.roi > 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ results.roi }}%
+                        </div>
+                        <div class="small text-muted">Return on Investment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Breakdown Chart -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">Financial Breakdown</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-container">
+                            <img src="data:image/png;base64,{{ financial_chart }}" alt="Financial Breakdown Chart" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- Replace the existing Nash Equilibrium section with this -->
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="h5 mb-0">Performance Analysis</h3>
+                        {% if results.nashEquilibrium and results.nashEquilibrium.isOptimal %}
+                        <span class="badge bg-success">Optimal Strategy</span>
+                        {% else %}
+                        <span class="badge bg-warning text-dark">Sub-Optimal Strategy</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h4 class="h6">Market Conditions</h4>
+                            <p class="mb-0">
+                                Audience: {{ results.marketConditions.audienceReceptivity }}% | 
+                                Competition: {{ results.marketConditions.competitionLevel }}%
+                            </p>
+                        </div>
+                        
+                        {% if results.nashEquilibrium %}
+                        <div class="mb-4">
+                            <h4 class="h6">Strategy Analysis</h4>
+                            <p class="mb-0">{{ results.nashEquilibrium.explanation }}</p>
+                            <p class="text-muted mt-2">Recommendation: {{ results.nashEquilibrium.recommendation }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg" id="playAgainBtn">
+            <i class="bi bi-arrow-repeat me-2"></i>Play Again
+        </a>
+    </div>
+</div>
+
+{% endblock %}
