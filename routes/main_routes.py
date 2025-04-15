@@ -176,18 +176,21 @@ def init_routes(app):
         selected_date = None
         
         if request.method == 'POST':
-            # Handle reset button
             if 'reset_date' in request.form:
-                if 'release_date' in session:
-                    session.pop('release_date')
-                selected_month = request.form.get('selected_month')
-                return redirect(url_for('calendar', month=selected_month))
+                # Clear all relevant session data
+                session.pop('release_date', None)
+                session.pop('selected_month', None)
+                session.pop('selected_date', None)
+                return redirect(url_for('calendar'))
             
             selected_month = request.form.get('selected_month')
             selected_date = request.form.get('release_date')
             
-            if selected_month and selected_date:
-                session['release_date'] = f"{selected_month} {selected_date}"
+            if selected_month:
+                session['selected_month'] = selected_month
+                if selected_date:
+                    session['release_date'] = f"{selected_month} {selected_date}"
+                    session['selected_date'] = selected_date
             
             if 'finalize' in request.form:
                 if 'release_date' not in session:
@@ -213,11 +216,11 @@ def init_routes(app):
                 
                 return redirect(url_for('results'))
         
-        if 'release_date' in session:
-            month_date = session['release_date'].split()
-            if len(month_date) == 2:
-                selected_month = month_date[0]
-                selected_date = int(month_date[1])
+        # Get selected values from session if not in request
+        if not selected_month:
+            selected_month = session.get('selected_month')
+        if not selected_date and 'selected_date' in session:
+            selected_date = session['selected_date']
         
         selected_month_info = date_info.get(selected_month, None) if selected_month else None
         

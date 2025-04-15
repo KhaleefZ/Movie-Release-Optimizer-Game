@@ -164,3 +164,42 @@ function calculateROI(boxOffice, totalCost) {
 }
 
 // Remove the updateMarketingSlider function as it's no longer needed
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle reset button
+    const resetButton = document.getElementById('resetButton');
+    if (resetButton) {
+        resetButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Submit the form with reset_date
+            const form = document.getElementById('dateForm');
+            const resetInput = document.createElement('input');
+            resetInput.type = 'hidden';
+            resetInput.name = 'reset_date';
+            resetInput.value = 'true';
+            form.appendChild(resetInput);
+            form.submit();
+            
+            // Clear active states
+            document.querySelectorAll('.month-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Reset date select if it exists
+            const dateSelect = document.getElementById('release_date');
+            if (dateSelect) {
+                dateSelect.selectedIndex = 0;
+            }
+        });
+    }
+    
+    // Handle month selection
+    const monthButtons = document.querySelectorAll('.month-button');
+    monthButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = this.href;
+        });
+    });
+});

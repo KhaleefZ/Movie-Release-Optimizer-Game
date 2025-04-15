@@ -152,6 +152,46 @@ def analyze_seasonal_trends(market_data, genre):
         'regular': {'months': [], 'avgAudience': 0, 'avgCompetition': 0, 'avgProfit': 0}
     }
     
+    # Genre-specific game theory insights
+    genre_insights = {
+        'action': {
+            'summer': "Action movies perform exceptionally well in summer due to school holidays and increased youth audience.",
+            'diwali': "Diwali season historically favors action blockbusters with family appeal.",
+            'christmas': "End-year holidays provide good opportunity for action-adventure releases.",
+            'regular': "Regular seasons require strong marketing to maintain audience interest."
+        },
+        'comedy': {
+            'summer': "Light-hearted comedies are perfect for summer vacation mood.",
+            'diwali': "Festival season amplifies comedy appeal across all demographics.",
+            'christmas': "Holiday season particularly favors family-friendly comedies.",
+            'regular': "Comedy performs consistently well throughout regular seasons."
+        },
+        'drama': {
+            'summer': "Drama films face tough competition from blockbusters in summer.",
+            'diwali': "Festival season offers good platform for meaningful dramas.",
+            'christmas': "Year-end awards season boosts serious drama prospects.",
+            'regular': "Regular seasons are ideal for dramatic releases with less competition."
+        },
+        'horror': {
+            'summer': "Horror films can counter-program against summer blockbusters.",
+            'diwali': "Festival season typically challenging for horror releases.",
+            'christmas': "Holiday season generally unfavorable for horror genre.",
+            'regular': "Regular seasons provide stable audience for horror releases."
+        },
+        'romance': {
+            'summer': "Summer romance films appeal to younger audiences.",
+            'diwali': "Festival season enhances family-oriented romance appeal.",
+            'christmas': "Holiday season particularly strong for romantic releases.",
+            'regular': "Valentine's season in regular months offers opportunities."
+        },
+        'scifi': {
+            'summer': "Sci-fi blockbusters dominate summer box office.",
+            'diwali': "Festival season good for sci-fi with cultural elements.",
+            'christmas': "Holiday season favors spectacular sci-fi releases.",
+            'regular': "Regular seasons need strong marketing for sci-fi success."
+        }
+    }
+
     for data in market_data:
         season = data['season']
         seasonal_data[season]['months'].append(data['month'])
@@ -173,24 +213,31 @@ def analyze_seasonal_trends(market_data, genre):
             'months': seasonal_data[season]['months'],
             'avgProfit': seasonal_data[season]['avgProfit'],
             'avgAudience': seasonal_data[season]['avgAudience'],
-            'avgCompetition': seasonal_data[season]['avgCompetition']
+            'avgCompetition': seasonal_data[season]['avgCompetition'],
+            'insight': genre_insights.get(genre, {}).get(season, "General market conditions apply.")
         })
     
     sorted_seasons.sort(key=lambda x: x['avgProfit'], reverse=True)
     
-    game_theory_insights = {
-        'action': "Action movies in India perform best during summer and Diwali seasons. Consider the strong competition during these periods against the higher audience turnout.",
-        'comedy': "Comedy films show strong performance during Diwali and Christmas seasons in India, benefiting from festive mood and family gatherings.",
-        'drama': "Drama films in India find success in regular seasons when there's less competition from commercial blockbusters.",
-        'horror': "Horror films perform well in regular seasons in India, avoiding major festival releases where family-friendly content dominates.",
-        'scifi': "Science fiction films in India show best results during summer vacation periods when younger audiences are more available.",
-        'family': "Family films in India peak during Diwali and Christmas seasons, capitalizing on festival celebrations and school holidays.",
-    }
+    best_seasons = sorted_seasons[:2]
+    worst_seasons = sorted_seasons[-2:]
     
     return {
-        'bestSeasons': sorted_seasons[:2],
-        'worstSeasons': sorted_seasons[2:][::-1],
-        'gameTheoryInsight': game_theory_insights.get(genre, "Consider the seasonal variations in Indian market, particularly festival seasons and vacation periods.")
+        'bestSeasons': best_seasons,
+        'worstSeasons': worst_seasons,
+        'gameTheoryInsight': genre_insights.get(genre, {}).get(sorted_seasons[0]['season'], 
+            "Consider market dynamics and competition levels when planning your release."),
+        'seasonalStrategies': {
+            season['season']: {
+                'months': season['months'],
+                'insight': season['insight'],
+                'metrics': {
+                    'avgProfit': round(season['avgProfit'], 2),
+                    'avgAudience': round(season['avgAudience'], 2),
+                    'avgCompetition': round(season['avgCompetition'], 2)
+                }
+            } for season in sorted_seasons
+        }
     }
 
 def analyze_competitor_strategies(competitor_data):
