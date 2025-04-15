@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_wtf import CSRFProtect
 import os
-
 from models.forms import MovieSetupForm
 from utils.market_analysis import generate_market_data, analyze_seasonal_trends, analyze_competitor_strategies, generate_competitor_data
 from utils.calculations import calculate_results, calculate_performance_rating
