@@ -105,10 +105,15 @@ def calculate_base_potential(budget, genre):
     genre_multipliers = {
         'action': 3.2,
         'comedy': 2.8,
+        'crime_thriller': 2.6,
+        'documentary': 1.5,
         'drama': 2.4,
+        'fantasy': 3.1,
         'horror': 3.5,
+        'musical': 2.7,
+        'romance': 2.6,
         'scifi': 3.0,
-        'family': 3.1
+        'sport': 2.3
     }
     return budget * genre_multipliers.get(genre, 2.8)
 

@@ -8,7 +8,7 @@ from utils.charts import generate_bar_chart, generate_line_chart, generate_pie_c
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_movie_release_game')
-csrf = CSRFProtect(app)
+csrf = CSRFProtect(app)  # Make sure this line is present
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -149,6 +149,9 @@ def calendar():
     if 'market_data' not in session or 'competitor_data' not in session:
         return redirect(url_for('index'))
     
+    # Create form instance for CSRF token
+    form = MovieSetupForm()
+    
     market_data = session['market_data']
     competitor_data = session['competitor_data']
     
@@ -185,7 +188,8 @@ def calendar():
                     'calendar.html',
                     active_tab='calendar',
                     date_info=date_info,
-                    error="Please select a release date before finalizing your decision."
+                    error="Please select a release date before finalizing your decision.",
+                    form=form  # Add form here
                 )
             
             results = calculate_results(
@@ -216,7 +220,8 @@ def calendar():
         date_info=date_info,
         selected_month=selected_month,
         selected_date=selected_date,
-        selected_month_info=selected_month_info
+        selected_month_info=selected_month_info,
+        form=form  # Add form here
     )
 
 @app.route('/results')

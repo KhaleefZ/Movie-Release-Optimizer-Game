@@ -8,10 +8,15 @@ class MovieSetupForm(FlaskForm):
     genre = SelectField('Genre', choices=[
         ('action', 'Action'),
         ('comedy', 'Comedy'),
+        ('crime_thriller', 'Crime Thriller'),
+        ('documentary', 'Documentary'),
         ('drama', 'Drama'),
+        ('fantasy', 'Fantasy'),
         ('horror', 'Horror'),
-        ('scifi', 'Science Fiction'),
-        ('family', 'Family')
+        ('musical', 'Musical'),
+        ('romance', 'Romance'),
+        ('scifi', 'Sci-Fi'),
+        ('sport', 'Sport')
     ], validators=[DataRequired()])
     
     budget = IntegerField(

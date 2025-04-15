@@ -451,4 +451,32 @@ header .lead {
 .dollar-value {
     display: none;
 }
+
+/* Add these styles */
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+    background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.alert-info {
+    background-color: #e8f4f8;
+    border-color: #bee5eb;
+    color: #0c5460;
+}
+
+/* Enhance the form layout */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.d-flex.gap-2 {
+    gap: 0.5rem !important;
+}
   

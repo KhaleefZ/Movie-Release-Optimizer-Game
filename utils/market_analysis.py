@@ -10,24 +10,17 @@ MONTHS = [
 def generate_market_data(genre):
     # Reduced seasonal multipliers with more realistic ranges
     genre_seasonality = {
-        'action': {
-            'summer': 1.15, 'diwali': 1.2, 'christmas': 1.15, 'regular': 1.0
-        },
-        'comedy': {
-            'summer': 1.1, 'diwali': 1.15, 'christmas': 1.15, 'regular': 1.05
-        },
-        'drama': {
-            'summer': 1.05, 'diwali': 1.1, 'christmas': 1.1, 'regular': 1.0
-        },
-        'horror': {
-            'summer': 1.05, 'diwali': 0.95, 'christmas': 0.9, 'regular': 1.1
-        },
-        'scifi': {
-            'summer': 1.15, 'diwali': 1.1, 'christmas': 1.1, 'regular': 1.0
-        },
-        'family': {
-            'summer': 1.1, 'diwali': 1.2, 'christmas': 1.2, 'regular': 1.05
-        }
+        'action': {'summer': 1.15, 'diwali': 1.2, 'christmas': 1.15, 'regular': 1.0},
+        'comedy': {'summer': 1.1, 'diwali': 1.15, 'christmas': 1.15, 'regular': 1.05},
+        'crime_thriller': {'summer': 1.05, 'diwali': 1.1, 'christmas': 1.1, 'regular': 1.0},
+        'documentary': {'summer': 1.0, 'diwali': 1.05, 'christmas': 1.05, 'regular': 1.0},
+        'drama': {'summer': 1.05, 'diwali': 1.1, 'christmas': 1.1, 'regular': 1.0},
+        'fantasy': {'summer': 1.15, 'diwali': 1.15, 'christmas': 1.2, 'regular': 1.05},
+        'horror': {'summer': 1.05, 'diwali': 0.95, 'christmas': 0.9, 'regular': 1.1},
+        'musical': {'summer': 1.1, 'diwali': 1.15, 'christmas': 1.2, 'regular': 1.05},
+        'romance': {'summer': 1.1, 'diwali': 1.15, 'christmas': 1.15, 'regular': 1.05},
+        'scifi': {'summer': 1.15, 'diwali': 1.1, 'christmas': 1.1, 'regular': 1.0},
+        'sport': {'summer': 1.15, 'diwali': 1.05, 'christmas': 1.05, 'regular': 1.0}
     }
     
     # Monthly base values for audience and competition

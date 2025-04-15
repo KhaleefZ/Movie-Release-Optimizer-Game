@@ -102,19 +102,13 @@ def init_routes(app):
         months = ["January", "February", "March", "April", "May", "June", 
                   "July", "August", "September", "October", "November", "December"]
         
-        # Count releases by month
+        # Count releases by month with improved sorting
         release_counts = {month: 0 for month in months}
         for competitor in competitor_data:
             for release in competitor['releases']:
                 release_counts[release['month']] += 1
         
-        month_distribution_chart = generate_pie_chart(
-            list(release_counts.keys()),
-            list(release_counts.values()),
-            'Release Distribution by Month'
-        )
-        
-        # Count releases by genre
+        # Sort genres by count for better visualization
         genre_counts = {}
         for competitor in competitor_data:
             for release in competitor['releases']:
@@ -123,10 +117,21 @@ def init_routes(app):
                     genre_counts[genre] = 0
                 genre_counts[genre] += 1
         
+        # Sort genres by count
+        sorted_genres = dict(sorted(genre_counts.items(), key=lambda x: x[1], reverse=True))
+        
+        month_distribution_chart = generate_pie_chart(
+            list(release_counts.keys()),
+            list(release_counts.values()),
+            'Release Distribution by Month',
+            figsize=(12, 12)
+        )
+        
         genre_distribution_chart = generate_pie_chart(
-            [g.title() for g in genre_counts.keys()],
-            list(genre_counts.values()),
-            'Release Distribution by Genre'
+            [g.title() for g in sorted_genres.keys()],
+            list(sorted_genres.values()),
+            'Release Distribution by Genre',
+            figsize=(12, 12)
         )
         
         game_theory_analysis = analyze_competitor_strategies(competitor_data)
@@ -145,6 +150,7 @@ def init_routes(app):
         if 'market_data' not in session or 'competitor_data' not in session:
             return redirect(url_for('index'))
         
+        form = MovieSetupForm()
         market_data = session['market_data']
         competitor_data = session['competitor_data']
         
@@ -170,18 +176,27 @@ def init_routes(app):
         selected_date = None
         
         if request.method == 'POST':
+            # Handle reset button
+            if 'reset_date' in request.form:
+                if 'release_date' in session:
+                    session.pop('release_date')
+                selected_month = request.form.get('selected_month')
+                return redirect(url_for('calendar', month=selected_month))
+            
             selected_month = request.form.get('selected_month')
             selected_date = request.form.get('release_date')
+            
             if selected_month and selected_date:
                 session['release_date'] = f"{selected_month} {selected_date}"
-                
+            
             if 'finalize' in request.form:
                 if 'release_date' not in session:
                     return render_template(
                         'calendar.html',
                         active_tab='calendar',
                         date_info=date_info,
-                        error="Please select a release date before finalizing your decision."
+                        error="Please select a release date before finalizing your decision.",
+                        form=form
                     )
                 
                 results = calculate_results(
@@ -212,7 +227,8 @@ def init_routes(app):
             date_info=date_info,
             selected_month=selected_month,
             selected_date=selected_date,
-            selected_month_info=selected_month_info
+            selected_month_info=selected_month_info,
+            form=form
         )
 
     @app.route('/results')
@@ -251,3 +267,5 @@ def init_routes(app):
             movie_details=movie_details,
             financial_chart=financial_chart
         )
+
+    return app  # Add this line to close the init_routes function
