@@ -1,5 +1,5 @@
 import random
-from .helpers import get_random_genre, generate_movie_title, find_most_common, get_season_multiplier
+from .helpers import get_random_genre, generate_movie_title, find_most_common, get_season_multiplier, get_season  # Added get_season
 
 # Define months at module level so it's accessible to all functions
 MONTHS = [
@@ -51,7 +51,7 @@ def generate_market_data(genre):
     
     for month in MONTHS:
         base_values = monthly_base_values[month]
-        season = season_map[month]
+        season = get_season(month)  # Changed from season_map[month] to get_season(month)
         season_multiplier = current_genre_seasonality.get(season, 1.0)
         
         # Calculate audience receptivity (30-75% range)
