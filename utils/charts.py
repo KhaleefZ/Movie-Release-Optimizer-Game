@@ -69,7 +69,7 @@ def generate_line_chart(x_data, y_data, title, x_label, y_label, color):
     plt.close()
     return base64.b64encode(img.getvalue()).decode()
 
-def generate_pie_chart(labels, values, title, figsize=(12, 12)):  # Increased default size
+def generate_pie_chart(labels, values, title, figsize=(8, 8)):  # Increased default size
     plt.figure(figsize=figsize)
     plt.clf()
     
@@ -77,7 +77,7 @@ def generate_pie_chart(labels, values, title, figsize=(12, 12)):  # Increased de
     colors = plt.cm.Paired(np.linspace(0, 1, len(labels)))
     
     # Create pie chart with improved styling
-    wedges, texts, autotexts = plt.pie(values, labels=labels, 
+    wedges, texts, autotexts = plt.pie(values, 
                                       autopct='%1.1f%%',
                                       startangle=90, 
                                       colors=colors,

@@ -148,8 +148,7 @@ def competitors():
 def calendar():
     if 'market_data' not in session or 'competitor_data' not in session:
         return redirect(url_for('index'))
-    
-    # Create form instance for CSRF token
+
     form = MovieSetupForm()
     
     market_data = session['market_data']
@@ -163,8 +162,7 @@ def calendar():
             'marketData': data,
             'competitorReleases': []
         }
-    
-    # Add competitor releases
+
     for competitor in competitor_data:
         for release in competitor['releases']:
             month = release['month']
@@ -172,16 +170,23 @@ def calendar():
                 release_with_studio = release.copy()
                 release_with_studio['studioName'] = competitor['name']
                 date_info[month]['competitorReleases'].append(release_with_studio)
-    
+
     selected_month = request.args.get('month')
     selected_date = None
-    
+
+    # ✅ Handle reset
+    if request.method == 'POST' and 'reset_date' in request.form:
+        session.pop('release_date', None)
+        session.pop('results', None)
+        session['game_phase'] = 'setup'  # Optional: reset game phase
+        return redirect(url_for('calendar'))  # Redirect to clean up form resubmission
+
     if request.method == 'POST':
         selected_month = request.form.get('selected_month')
         selected_date = request.form.get('release_date')
         if selected_month and selected_date:
             session['release_date'] = f"{selected_month} {selected_date}"
-            
+        
         if 'finalize' in request.form:
             if 'release_date' not in session:
                 return render_template(
@@ -189,7 +194,7 @@ def calendar():
                     active_tab='calendar',
                     date_info=date_info,
                     error="Please select a release date before finalizing your decision.",
-                    form=form  # Add form here
+                    form=form
                 )
             
             results = calculate_results(
@@ -205,15 +210,15 @@ def calendar():
             session['game_phase'] = 'results'
             
             return redirect(url_for('results'))
-    
+
     if 'release_date' in session:
         month_date = session['release_date'].split()
         if len(month_date) == 2:
             selected_month = month_date[0]
             selected_date = int(month_date[1])
-    
+
     selected_month_info = date_info.get(selected_month, None) if selected_month else None
-    
+
     return render_template(
         'calendar.html',
         active_tab='calendar',
@@ -221,7 +226,7 @@ def calendar():
         selected_month=selected_month,
         selected_date=selected_date,
         selected_month_info=selected_month_info,
-        form=form  # Add form here
+        form=form
     )
 
 @app.route('/results')
