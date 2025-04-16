@@ -269,5 +269,10 @@ def results():
         performance_rating=performance_rating
     )
 
+@app.route('/reset_game')
+def reset_game():
+    session.clear() 
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
