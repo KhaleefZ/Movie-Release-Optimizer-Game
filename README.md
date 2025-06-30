@@ -141,7 +141,7 @@ The Movie Release Optimizer provides the following output metrics:
 - **Projected Box Office Revenue**: Estimated revenue based on release timing and competition.
 - **Expected ROI**: Return on investment, calculated for different release options.
 - **Profit Potential**: Estimation of potential profits considering various market conditions.
-- **Competition Impact**: Analyzed impact of competing releases on your film’s performance.
+- **Competition Impact**: Analyzed the impact of competing releases on your film’s performance.
 - **Market Condition Scores**: Scores reflecting the overall market readiness for a successful release.
 - **Strategic Recommendations**: Actionable advice to make the best release decision.
 
