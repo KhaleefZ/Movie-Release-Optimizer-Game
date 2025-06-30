@@ -5,7 +5,7 @@ A strategic planning tool for movie release decisions using game theory and mark
 
 ## Overview
 
-The **Movie Release Optimizer** is a Flask-based web application designed to assist movie producers and distributors in making data-driven decisions regarding the optimal release dates for their films. The tool analyzes a variety of factors including market conditions, competitor release schedules, seasonal trends, and more, in order to provide strategic insights and recommendations for maximizing box office success.
+The **Movie Release Optimizer** is a Flask-based web application designed to assist movie producers and distributors in making data-driven decisions regarding the optimal release dates for their films. The tool analyzes a variety of factors, including market conditions, competitor release schedules, seasonal trends, and more, in order to provide strategic insights and recommendations for maximizing box office success.
 
 Key features include:
 
